@@ -1,0 +1,28 @@
+
+Project 7.B: Single Morphological Operation.
+	
+**************************************
+Language: C++ 
+
+Due date: soft copy: 11/28/2017 Tuesday before Midnight
+Due date: hard copy: 11/30/2017 Thurssday in class
+
+*************************************
+Project 7.B specs
+*************************************
+Your project 7.B will re-use the entire code of your project 7.A with the following
+modifications:
+1) adding a third input argument, argv[3], as the user's choice of 
+which morphological operation to the image binary image in argv[1] 
+using the structuring element  in argv[2]. 
+The value of argv[3] is a character:
+	D for dilation
+	E for Erosion
+	O for Opening
+	C for Closing
+2) the program perform only a single morphological opertion requested by the user, given in argv[3]
+3) the program only need to write he result of that operation to the output file in argv[4]
+for future processing, no other outputs are required as in your project 7.A.
+
+
+

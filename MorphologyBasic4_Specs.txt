@@ -1,0 +1,139 @@
+
+Project 7.A: Implementation of the four Elementry Morphology Operations.
+
+You will be given two sets of data: 
+set1) Morphology_Img1.txt and Morphology_StrucElem1.txt
+set2) Morphology_Img2.txt and Morphology_StrucElem2.txt
+
+You are to run your program twice for set1 and set2. 
+Your hard copies need to include the result for both sets.
+
+**************************************
+Language: C++
+Due date: soft copy:  11/25/2017 Saturday before midnight
+	(Early submission deadline: 11/22/2017 Wednesday before midnight)
+Due date: hard copy:  11/28/2017 Tuesday in class.
+
+*******************************
+I. Inputs: There are two input files.
+*******************************
+ 1 Input1 (argv[1]): a txt file representing a binary image with header.
+
+ 2. Input2 (argv[2]): a txt file representing a binary image of a structuring element 
+   with header and the origin of the structuring element. The format of the structuring element is as follows: 
+   1th text line is the ordinary image header; the 2nd text line is the position (w.r.t. index) of the origin, 
+   then follows by the rows and column of the structuring element.
+   
+	For example:
+
+    4 5 0 1 // 4 rows, 5 columns, 0 min, 1 max: 2-D structureing element
+    1 2     // origin is at row index 1 and column index 2.
+    0 0 1 0 0
+    0 0 1 0 0
+    1 1 1 1 1
+    0 0 1 0 0
+    0 0 1 0 0
+
+	Another example:
+
+    1 5 0 1 // 1 rows, 5 columns, 0 min, 1 max: 1-D structureing element
+    0 2     // origin is at row index 0 and column index 2.
+    1 1 1 1 1
+    
+*******************************
+II. OutPuts:
+	- Console output // need to turn in Hard copies
+	- Output1 (argv[3]): the result of dilation image with header, should be the same dimension as input1
+     	- Output2 (args[4]): the result of erosion image with header, should be the same dimension as input1
+    	- Output3 (args[5]): the result of closing image with header, should be the same dimension as input1
+    	- Output4 (args[6]): the result of opening image with header, should be the same dimension as input1
+	
+*******************************
+III. Data structure:
+*******************************
+    	- numRowsIMG (int)
+	- numColsIMG (int)
+	- minValIMG (int)
+	- maxValIMG (int)
+
+  	- numRowsStrctElem (int)
+	- numColsStrctElem (int)
+	- minValStrctElem (int)
+	- maxValStrctElem (int)
+	- rowOrigin (int)
+	- colOrigin (int)
+
+	- rowFrameSize (int)
+	- colFrameSize (int)
+
+	- imgAry (int **) a 2D array, to store the input image, 
+			need to dynamically allocate at run time
+			of size numRowsIMG + rowFrameSize by numColsIMG + colFrameSize.
+	
+	- morphAry (int **) a 2D array, need to dynamically allocate at run time
+			of size numRowsIMG+rowFrameSize by numColsIMG+colFrameSize.
+	
+     	- structElem (int **) a 2D array, need to dynamically allocate at run time
+			of size numRowsStrctElem by numColsStrctElem.
+
+    - methods:
+	- constructor(s) 
+
+	- computeFrameSize(...) // for this project  
+			// rowFrameSize set to numRowsStrctElem (half to the top and half to the bottom) 
+			// colFrameSize set to numColsStrctElem (half to the left and half to the right) 
+    
+	- loadImage  // load imgAry from input1
+	- loadstruct  // load structAry from input2
+    	- zeroFrameImage // frame the input image with zero
+	- delation (i,j) // at pixel(i,j), i begins at numRowsStrctElem / 2, and j begins at numColsStrctElem / 2
+	- erosin (i,j) // at pixel(i,j)
+	- closing (i,j) // at pixel(i,j)
+	- opening	(i,j) // at pixel(i,j)   
+	- prettyPrint
+	- outPutResult 
+ 	     
+*******************************
+III. Algorithms 
+*******************************
+
+Remarks: 
+	When you call each of the four morphological operations: 
+	1. you need to reset the morphAry to zero, 
+	2. each operatioin begins at rowFrameSize and colFrameSizeuse of imgAry
+	3. write the result to the console, you must write which operation 
+	4. write the result from morphAry to outfile, begins at rowFrameSize/2 and colFrameSize/2 of morphAry
+
+step 0: - open input1 and process header info
+	- open input2 and process header info and origin
+
+step 1: - computeFrameSize
+
+step 2: - dynamically allocate imgAry with extra rows and extra columns	
+	- loadImage // load input file to imgAry
+	- zeroFrame 
+ 	- prettyPrint (imgAry) // pretty print imgAry to the *console* with "Input Image"
+	- dynamically allocate morphAry with extra rows and extra columns	
+
+step 3: - dynamically allocate structElem
+	- loadstruct // load input2 file to structElem array
+	- prettyPring (structElem)// pretty print to the *console*  with "Structuring Element"
+
+step 4: - call delation // see your lecture note
+	- prettyPrint (morphAry) // pretty print to the *console*  with "Delation Result"
+	- outPutResult //write the delation result to output1 
+
+step 5: - call erosion // see your lecture note
+	- prettyPrint (morphAry) // pretty print to the *console*  with "Erosion Result"
+	- outPutResult //write the erosion result to output2 
+
+step 6: - call closing // By call those two morphological ops one after the other
+	- prettyPrint (morphAry) // pretty print to the *console*  with "Closing Result"
+	- outPutResult //write the closing result to output3 
+
+step 7: - call opening // By call those two morphological ops one after the other
+	- prettyPrint (morphAry) // pretty print to the *console* with "Opening Result"
+	- outPutResult //write the opening result to output4 
+
+step 8: close all files
+
